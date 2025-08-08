@@ -22,9 +22,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
 import { NavUser } from "./nav-user";
 import { TeamSwitcher } from "./team-switcher";
-import { Link } from "@tanstack/react-router";
 
 const teams = [
   {
