@@ -1,13 +1,18 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-export function AppProvider({ children }: { children: React.ReactNode }) {
+export const Route = createFileRoute("/_auth")({
+  component: AuthLayout,
+});
+
+function AuthLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
       <main>
         <SidebarTrigger />
-        {children}
+        <Outlet />
       </main>
     </SidebarProvider>
   );
