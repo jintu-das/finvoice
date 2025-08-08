@@ -13,6 +13,7 @@ import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as AuthIndexRouteImport } from './routes/_auth/index'
+import { Route as AuthSettingsRouteImport } from './routes/_auth/settings'
 import { Route as AuthInvoicesRouteImport } from './routes/_auth/invoices'
 import { Route as AuthClientsRouteImport } from './routes/_auth/clients'
 import { Route as AuthAboutRouteImport } from './routes/_auth/about'
@@ -34,6 +35,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthSettingsRoute = AuthSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthInvoicesRoute = AuthInvoicesRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AuthAboutRoute
   '/clients': typeof AuthClientsRoute
   '/invoices': typeof AuthInvoicesRoute
+  '/settings': typeof AuthSettingsRoute
   '/': typeof AuthIndexRoute
 }
 export interface FileRoutesByTo {
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/about': typeof AuthAboutRoute
   '/clients': typeof AuthClientsRoute
   '/invoices': typeof AuthInvoicesRoute
+  '/settings': typeof AuthSettingsRoute
   '/': typeof AuthIndexRoute
 }
 export interface FileRoutesById {
@@ -76,13 +84,28 @@ export interface FileRoutesById {
   '/_auth/about': typeof AuthAboutRoute
   '/_auth/clients': typeof AuthClientsRoute
   '/_auth/invoices': typeof AuthInvoicesRoute
+  '/_auth/settings': typeof AuthSettingsRoute
   '/_auth/': typeof AuthIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/sign-in' | '/sign-up' | '/about' | '/clients' | '/invoices' | '/'
+  fullPaths:
+    | '/sign-in'
+    | '/sign-up'
+    | '/about'
+    | '/clients'
+    | '/invoices'
+    | '/settings'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/sign-in' | '/sign-up' | '/about' | '/clients' | '/invoices' | '/'
+  to:
+    | '/sign-in'
+    | '/sign-up'
+    | '/about'
+    | '/clients'
+    | '/invoices'
+    | '/settings'
+    | '/'
   id:
     | '__root__'
     | '/_auth'
@@ -91,6 +114,7 @@ export interface FileRouteTypes {
     | '/_auth/about'
     | '/_auth/clients'
     | '/_auth/invoices'
+    | '/_auth/settings'
     | '/_auth/'
   fileRoutesById: FileRoutesById
 }
@@ -130,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_auth/settings': {
+      id: '/_auth/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthSettingsRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/invoices': {
       id: '/_auth/invoices'
       path: '/invoices'
@@ -158,6 +189,7 @@ interface AuthRouteRouteChildren {
   AuthAboutRoute: typeof AuthAboutRoute
   AuthClientsRoute: typeof AuthClientsRoute
   AuthInvoicesRoute: typeof AuthInvoicesRoute
+  AuthSettingsRoute: typeof AuthSettingsRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
 
@@ -165,6 +197,7 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthAboutRoute: AuthAboutRoute,
   AuthClientsRoute: AuthClientsRoute,
   AuthInvoicesRoute: AuthInvoicesRoute,
+  AuthSettingsRoute: AuthSettingsRoute,
   AuthIndexRoute: AuthIndexRoute,
 }
 

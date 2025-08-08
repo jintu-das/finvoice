@@ -16,6 +16,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -23,6 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
 import { TeamSwitcher } from "./team-switcher";
+import { Link } from "@tanstack/react-router";
 
 const teams = [
   {
@@ -46,13 +48,8 @@ const user = {
   email: "m@example.com",
   avatar: "/avatars/shadcn.jpg",
 };
-// Menu items.
-const items = [
-  {
-    title: "Dashboard",
-    url: "/",
-    icon: LayoutDashboard,
-  },
+
+const authentication = [
   {
     title: "Sign In",
     url: "sign-in",
@@ -63,6 +60,16 @@ const items = [
     url: "/sign-up",
     icon: UserPlus,
   },
+];
+
+// Menu items.
+const items = [
+  {
+    title: "Dashboard",
+    url: "/",
+    icon: LayoutDashboard,
+  },
+
   {
     title: "Invoices",
     url: "/invoices",
@@ -75,7 +82,7 @@ const items = [
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
 ];
@@ -93,10 +100,28 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Authentication</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {authentication.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <Link to={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
