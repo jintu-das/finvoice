@@ -1,11 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 import NavActions from "@/components/nav-actions";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -30,15 +25,7 @@ function AuthLayout() {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="line-clamp-1">
-                    Project Management & Task Tracking
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <BreadcrumbNav />
           </div>
           <div className="ml-auto px-3">
             <NavActions />
