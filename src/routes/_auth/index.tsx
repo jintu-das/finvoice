@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_auth/")({
 
 function Index() {
   return (
-    <main className="container mx-auto py-6">
+    <>
       <h1 className="text-3xl font-medium">Finvoice</h1>
       <p className="text-gray-600 mt-2">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non autem
@@ -14,6 +14,6 @@ function Index() {
         deserunt repellat illum distinctio? Expedita asperiores dignissimos
         alias vel?
       </p>
-    </main>
+    </>
   );
 }
