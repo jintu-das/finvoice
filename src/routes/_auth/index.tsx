@@ -9,14 +9,13 @@ export const Route = createFileRoute("/_auth/")({
 
 function Index() {
   return (
-    <>
-      <h1 className="text-3xl font-medium">Finvoice</h1>
-      <p className="text-gray-600 mt-2">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non autem
-        iusto id est dolorem, molestiae vero optio eius soluta reiciendis fuga
-        deserunt repellat illum distinctio? Expedita asperiores dignissimos
-        alias vel?
-      </p>
-    </>
+    <div className="flex flex-1 flex-col gap-4 p-4">
+      <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+        <div className="bg-muted/80 aspect-video rounded-xl" />
+        <div className="bg-muted/80 aspect-video rounded-xl" />
+        <div className="bg-muted/80 aspect-video rounded-xl" />
+      </div>
+      <div className="aspect-video bg-muted/80 rounded-xl" />
+    </div>
   );
 }
