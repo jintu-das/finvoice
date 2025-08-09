@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { currencyFormat } from "@/lib/utils";
 import { TrendingUp } from "lucide-react";
 
 type StatCardProps = {
@@ -21,7 +22,7 @@ export default function StatCard(props: StatCardProps) {
       <CardHeader>
         <CardDescription>{props.title}</CardDescription>
         <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-          ${props.value}
+          {currencyFormat(props.value)}
         </CardTitle>
         <CardAction>
           <Badge variant="outline">
