@@ -1,10 +1,8 @@
 import {
-  AudioWaveform,
-  Command,
   Files,
-  GalleryVerticalEnd,
   LayoutDashboard,
   LogIn,
+  ReceiptText,
   Settings,
   UserPlus,
   Users,
@@ -26,23 +24,12 @@ import { Link } from "@tanstack/react-router";
 import { NavUser } from "./nav-user";
 import { TeamSwitcher } from "./team-switcher";
 
-const teams = [
-  {
-    name: "Acme Inc",
-    logo: GalleryVerticalEnd,
-    plan: "Enterprise",
-  },
-  {
-    name: "Acme Corp.",
-    logo: AudioWaveform,
-    plan: "Startup",
-  },
-  {
-    name: "Evil Corp.",
-    logo: Command,
-    plan: "Free",
-  },
-];
+const teams = {
+  name: "Acme Inc",
+  logo: ReceiptText,
+  plan: "Enterprise",
+};
+
 const user = {
   name: "shadcn",
   email: "m@example.com",
@@ -91,7 +78,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <TeamSwitcher teams={teams} />
+        <TeamSwitcher team={teams} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
