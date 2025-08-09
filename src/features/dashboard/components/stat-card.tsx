@@ -17,7 +17,7 @@ type StatCardProps = {
 
 export default function StatCard(props: StatCardProps) {
   return (
-    <Card className="@container/card">
+    <Card>
       <CardHeader>
         <CardDescription>{props.title}</CardDescription>
         <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">

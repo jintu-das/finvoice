@@ -1,3 +1,4 @@
+import { ChartAreaInteractive } from "@/features/dashboard/components/chart-area-interactive";
 import StatCard from "@/features/dashboard/components/stat-card";
 import { DASHBOARD_MOCK_DATA } from "@/lib/mock-data";
 import { createFileRoute } from "@tanstack/react-router";
@@ -21,10 +22,10 @@ function Index() {
             value={stat.value}
           />
         ))}
-        {/* <div className="bg-muted/80 aspect-video rounded-xl" />
-        <div className="bg-muted/80 aspect-video rounded-xl" />
-        <div className="bg-muted/80 aspect-video rounded-xl" /> */}
       </div>
+
+      <ChartAreaInteractive />
+
       <div className="aspect-video bg-muted/80 rounded-xl" />
     </div>
   );
