@@ -43,98 +43,24 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@tanstack/react-router";
+import invoices from "@/lib/invoices.json"; // Assuming you have a JSON file with invoice data
 
+// Define the type based on the actual data structure in invoices.json
 type Invoice = {
   invoice: string;
   client: string;
   paymentStatus: string;
   totalAmount: string;
   paymentMethod: string;
-  sendAt?: string;
+  dueDate: string;
+  createdAt: string;
+  description: string;
+  terms: string;
+  taxRate: number;
+  sendAt?: string; // Added because it's used in the dueDate column formatter
 };
 
-const data: Invoice[] = [
-  {
-    invoice: "INV-1001",
-    client: "Acme Corp",
-    paymentStatus: "Paid",
-    totalAmount: "₹12,500",
-    paymentMethod: "Bank Transfer",
-    sendAt: "2025-07-15T10:30:00Z",
-  },
-  {
-    invoice: "INV-1002",
-    client: "Pixel Studio",
-    paymentStatus: "Pending",
-    totalAmount: "₹8,000",
-    paymentMethod: "UPI",
-    sendAt: "2025-07-18T14:20:00Z",
-  },
-  {
-    invoice: "INV-1003",
-    client: "Brightway Solutions",
-    paymentStatus: "Overdue",
-    totalAmount: "₹15,000",
-    paymentMethod: "Credit Card",
-    sendAt: "2025-07-10T09:15:00Z",
-  },
-  {
-    invoice: "INV-1004",
-    client: "Nova Interiors",
-    paymentStatus: "Paid",
-    totalAmount: "₹22,000",
-    paymentMethod: "Cash",
-    sendAt: "2025-07-12T16:00:00Z",
-  },
-  {
-    invoice: "INV-1005",
-    client: "Skyline Tech",
-    paymentStatus: "Pending",
-    totalAmount: "₹9,500",
-    paymentMethod: "UPI",
-    sendAt: "2025-07-22T11:45:00Z",
-  },
-  {
-    invoice: "INV-1006",
-    client: "Evergreen Traders",
-    paymentStatus: "Overdue",
-    totalAmount: "₹6,800",
-    paymentMethod: "Bank Transfer",
-    sendAt: "2025-07-08T08:10:00Z",
-  },
-  {
-    invoice: "INV-1007",
-    client: "Blue Horizon",
-    paymentStatus: "Paid",
-    totalAmount: "₹18,200",
-    paymentMethod: "Credit Card",
-    sendAt: "2025-07-14T15:30:00Z",
-  },
-  {
-    invoice: "INV-1008",
-    client: "Golden Leaf Pvt Ltd",
-    paymentStatus: "Pending",
-    totalAmount: "₹11,000",
-    paymentMethod: "Bank Transfer",
-    sendAt: "2025-07-19T10:00:00Z",
-  },
-  {
-    invoice: "INV-1009",
-    client: "Sunrise Media",
-    paymentStatus: "Paid",
-    totalAmount: "₹7,600",
-    paymentMethod: "UPI",
-    sendAt: "2025-07-13T13:20:00Z",
-  },
-  {
-    invoice: "INV-1010",
-    client: "NextGen Logistics",
-    paymentStatus: "Overdue",
-    totalAmount: "₹20,000",
-    paymentMethod: "Bank Transfer",
-    sendAt: "2025-07-05T09:00:00Z",
-  },
-];
+const data = invoices.slice(0, 10);
 
 export const columns: ColumnDef<Invoice>[] = [
   {
@@ -188,8 +114,8 @@ export const columns: ColumnDef<Invoice>[] = [
     ),
   },
   {
-    accessorKey: "sendAt",
-    header: "Date Sent",
+    accessorKey: "dueDate",
+    header: "Due Date",
     cell: ({ row }) => {
       const date = new Date(row.getValue("sendAt"));
       return date.toLocaleDateString("en-US", {
