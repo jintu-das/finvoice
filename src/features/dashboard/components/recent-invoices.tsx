@@ -276,9 +276,14 @@ export function RecentInvoices() {
           <Button variant="outline">
             <DownloadCloud className="size-4" /> Export
           </Button>
-          <Button variant="outline">
+          <Link
+            to="/clients/create"
+            className={buttonVariants({
+              variant: "outline",
+            })}
+          >
             <Plus className="size-4" /> Client
-          </Button>
+          </Link>
           <Link to="/invoices/create" className={buttonVariants()}>
             <Plus className="size-4" /> Invoice
           </Link>

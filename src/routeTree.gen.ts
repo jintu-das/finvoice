@@ -14,11 +14,13 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as AuthIndexRouteImport } from './routes/_auth/index'
 import { Route as AuthSettingsRouteImport } from './routes/_auth/settings'
-import { Route as AuthClientsRouteImport } from './routes/_auth/clients'
 import { Route as AuthAboutRouteImport } from './routes/_auth/about'
 import { Route as AuthInvoicesRouteRouteImport } from './routes/_auth/invoices/route'
+import { Route as AuthClientsRouteRouteImport } from './routes/_auth/clients/route'
 import { Route as AuthInvoicesIndexRouteImport } from './routes/_auth/invoices/index'
+import { Route as AuthClientsIndexRouteImport } from './routes/_auth/clients/index'
 import { Route as AuthInvoicesCreateRouteImport } from './routes/_auth/invoices/create'
+import { Route as AuthClientsCreateRouteImport } from './routes/_auth/clients/create'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -44,11 +46,6 @@ const AuthSettingsRoute = AuthSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const AuthClientsRoute = AuthClientsRouteImport.update({
-  id: '/clients',
-  path: '/clients',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
 const AuthAboutRoute = AuthAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -59,36 +56,54 @@ const AuthInvoicesRouteRoute = AuthInvoicesRouteRouteImport.update({
   path: '/invoices',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthClientsRouteRoute = AuthClientsRouteRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthInvoicesIndexRoute = AuthInvoicesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthInvoicesRouteRoute,
+} as any)
+const AuthClientsIndexRoute = AuthClientsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthClientsRouteRoute,
 } as any)
 const AuthInvoicesCreateRoute = AuthInvoicesCreateRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AuthInvoicesRouteRoute,
 } as any)
+const AuthClientsCreateRoute = AuthClientsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AuthClientsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/clients': typeof AuthClientsRouteRouteWithChildren
   '/invoices': typeof AuthInvoicesRouteRouteWithChildren
   '/about': typeof AuthAboutRoute
-  '/clients': typeof AuthClientsRoute
   '/settings': typeof AuthSettingsRoute
   '/': typeof AuthIndexRoute
+  '/clients/create': typeof AuthClientsCreateRoute
   '/invoices/create': typeof AuthInvoicesCreateRoute
+  '/clients/': typeof AuthClientsIndexRoute
   '/invoices/': typeof AuthInvoicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/about': typeof AuthAboutRoute
-  '/clients': typeof AuthClientsRoute
   '/settings': typeof AuthSettingsRoute
   '/': typeof AuthIndexRoute
+  '/clients/create': typeof AuthClientsCreateRoute
   '/invoices/create': typeof AuthInvoicesCreateRoute
+  '/clients': typeof AuthClientsIndexRoute
   '/invoices': typeof AuthInvoicesIndexRoute
 }
 export interface FileRoutesById {
@@ -96,12 +111,14 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/_auth/clients': typeof AuthClientsRouteRouteWithChildren
   '/_auth/invoices': typeof AuthInvoicesRouteRouteWithChildren
   '/_auth/about': typeof AuthAboutRoute
-  '/_auth/clients': typeof AuthClientsRoute
   '/_auth/settings': typeof AuthSettingsRoute
   '/_auth/': typeof AuthIndexRoute
+  '/_auth/clients/create': typeof AuthClientsCreateRoute
   '/_auth/invoices/create': typeof AuthInvoicesCreateRoute
+  '/_auth/clients/': typeof AuthClientsIndexRoute
   '/_auth/invoices/': typeof AuthInvoicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -109,34 +126,39 @@ export interface FileRouteTypes {
   fullPaths:
     | '/sign-in'
     | '/sign-up'
+    | '/clients'
     | '/invoices'
     | '/about'
-    | '/clients'
     | '/settings'
     | '/'
+    | '/clients/create'
     | '/invoices/create'
+    | '/clients/'
     | '/invoices/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sign-in'
     | '/sign-up'
     | '/about'
-    | '/clients'
     | '/settings'
     | '/'
+    | '/clients/create'
     | '/invoices/create'
+    | '/clients'
     | '/invoices'
   id:
     | '__root__'
     | '/_auth'
     | '/sign-in'
     | '/sign-up'
+    | '/_auth/clients'
     | '/_auth/invoices'
     | '/_auth/about'
-    | '/_auth/clients'
     | '/_auth/settings'
     | '/_auth/'
+    | '/_auth/clients/create'
     | '/_auth/invoices/create'
+    | '/_auth/clients/'
     | '/_auth/invoices/'
   fileRoutesById: FileRoutesById
 }
@@ -183,13 +205,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSettingsRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/_auth/clients': {
-      id: '/_auth/clients'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof AuthClientsRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
     '/_auth/about': {
       id: '/_auth/about'
       path: '/about'
@@ -204,12 +219,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthInvoicesRouteRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_auth/clients': {
+      id: '/_auth/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof AuthClientsRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/invoices/': {
       id: '/_auth/invoices/'
       path: '/'
       fullPath: '/invoices/'
       preLoaderRoute: typeof AuthInvoicesIndexRouteImport
       parentRoute: typeof AuthInvoicesRouteRoute
+    }
+    '/_auth/clients/': {
+      id: '/_auth/clients/'
+      path: '/'
+      fullPath: '/clients/'
+      preLoaderRoute: typeof AuthClientsIndexRouteImport
+      parentRoute: typeof AuthClientsRouteRoute
     }
     '/_auth/invoices/create': {
       id: '/_auth/invoices/create'
@@ -218,8 +247,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthInvoicesCreateRouteImport
       parentRoute: typeof AuthInvoicesRouteRoute
     }
+    '/_auth/clients/create': {
+      id: '/_auth/clients/create'
+      path: '/create'
+      fullPath: '/clients/create'
+      preLoaderRoute: typeof AuthClientsCreateRouteImport
+      parentRoute: typeof AuthClientsRouteRoute
+    }
   }
 }
+
+interface AuthClientsRouteRouteChildren {
+  AuthClientsCreateRoute: typeof AuthClientsCreateRoute
+  AuthClientsIndexRoute: typeof AuthClientsIndexRoute
+}
+
+const AuthClientsRouteRouteChildren: AuthClientsRouteRouteChildren = {
+  AuthClientsCreateRoute: AuthClientsCreateRoute,
+  AuthClientsIndexRoute: AuthClientsIndexRoute,
+}
+
+const AuthClientsRouteRouteWithChildren =
+  AuthClientsRouteRoute._addFileChildren(AuthClientsRouteRouteChildren)
 
 interface AuthInvoicesRouteRouteChildren {
   AuthInvoicesCreateRoute: typeof AuthInvoicesCreateRoute
@@ -235,17 +284,17 @@ const AuthInvoicesRouteRouteWithChildren =
   AuthInvoicesRouteRoute._addFileChildren(AuthInvoicesRouteRouteChildren)
 
 interface AuthRouteRouteChildren {
+  AuthClientsRouteRoute: typeof AuthClientsRouteRouteWithChildren
   AuthInvoicesRouteRoute: typeof AuthInvoicesRouteRouteWithChildren
   AuthAboutRoute: typeof AuthAboutRoute
-  AuthClientsRoute: typeof AuthClientsRoute
   AuthSettingsRoute: typeof AuthSettingsRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthClientsRouteRoute: AuthClientsRouteRouteWithChildren,
   AuthInvoicesRouteRoute: AuthInvoicesRouteRouteWithChildren,
   AuthAboutRoute: AuthAboutRoute,
-  AuthClientsRoute: AuthClientsRoute,
   AuthSettingsRoute: AuthSettingsRoute,
   AuthIndexRoute: AuthIndexRoute,
 }

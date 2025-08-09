@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth/clients")({
   component: RouteComponent,
@@ -8,5 +8,5 @@ export const Route = createFileRoute("/_auth/clients")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/clients"!</div>;
+  return <Outlet />;
 }
