@@ -1,4 +1,5 @@
 import { ChartAreaInteractive } from "@/features/dashboard/components/chart-area-interactive";
+import { RecentInvoices } from "@/features/dashboard/components/recent-invoices";
 import StatCard from "@/features/dashboard/components/stat-card";
 import { DASHBOARD_MOCK_DATA } from "@/lib/mock-data";
 import { createFileRoute } from "@tanstack/react-router";
@@ -25,8 +26,7 @@ function Index() {
       </div>
 
       <ChartAreaInteractive />
-
-      <div className="aspect-video bg-muted/80 rounded-xl" />
+      <RecentInvoices />
     </div>
   );
 }
