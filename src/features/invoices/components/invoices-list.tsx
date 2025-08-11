@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-
+import invoices from "@/lib/invoices.json";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -18,12 +18,10 @@ import {
   CircleDashed,
   DownloadCloud,
   MoreHorizontal,
-  Plus,
 } from "lucide-react";
 import * as React from "react";
-
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -33,6 +31,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -41,27 +40,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Link } from "@tanstack/react-router";
-import invoices from "@/lib/invoices.json"; // Assuming you have a JSON file with invoice data
-
-// Define the type based on the actual data structure in invoices.json
-type Invoice = {
-  invoice: string;
-  client: string;
-  paymentStatus: string;
-  totalAmount: string;
-  paymentMethod: string;
-  dueDate: string;
-  createdAt: string;
-  description: string;
-  terms: string;
-  taxRate: number;
-  sendAt?: string; // Added because it's used in the dueDate column formatter
-  id: string; // Added to match the expected type
-};
-
-const data = invoices.slice(0, 10);
+import type { Invoice } from "@/types";
+import InvoiceFilter from "./invoice-filter";
 
 export const columns: ColumnDef<Invoice>[] = [
   {
@@ -162,7 +142,7 @@ export const columns: ColumnDef<Invoice>[] = [
   },
 ];
 
-export function RecentInvoices() {
+export function InvoicesList() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -172,7 +152,7 @@ export function RecentInvoices() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: invoices as Invoice[],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -193,27 +173,24 @@ export function RecentInvoices() {
   return (
     <div className="w-full">
       <div className="flex flex-col lg:flex-row justify-between items-center py-4 gap-2">
-        <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList>
-            <TabsTrigger value="account">Recent Invoices</TabsTrigger>
-            <TabsTrigger value="password">Recent Clients</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex-1 flex items-center gap-3">
+          <Input
+            type="search"
+            placeholder="Filter Invoice by ID..."
+            value={
+              (table.getColumn("invoice")?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn("invoice")?.setFilterValue(event.target.value)
+            }
+            className="w-full max-w-sm"
+          />
+          <InvoiceFilter />
+        </div>
         <div className="flex items-center gap-2 justify-end">
           <Button variant="outline">
             <DownloadCloud className="size-4" /> Export
           </Button>
-          <Link
-            to="/clients/create"
-            className={buttonVariants({
-              variant: "outline",
-            })}
-          >
-            <Plus className="size-4" /> Client
-          </Link>
-          <Link to="/invoices/create" className={buttonVariants()}>
-            <Plus className="size-4" /> Invoice
-          </Link>
         </div>
       </div>
       <div className="overflow-hidden rounded-md border">
@@ -265,6 +242,30 @@ export function RecentInvoices() {
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="text-muted-foreground flex-1 text-sm">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

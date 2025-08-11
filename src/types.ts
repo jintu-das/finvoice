@@ -9,6 +9,7 @@ export type Invoice = {
   description?: string;
   terms: string;
   taxRate?: number;
+  id: string;
 };
 
 export type Client = {

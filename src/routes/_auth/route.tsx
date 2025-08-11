@@ -18,8 +18,8 @@ function AuthLayout() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 p-4">
-          <div className="flex flex-1 items-center gap-2 px-3">
+        <header className="flex h-14 shrink-0 items-center gap-2 px-4 lg:px-8">
+          <div className="flex flex-1 items-center gap-2">
             <SidebarTrigger />
             <Separator
               orientation="vertical"
@@ -27,11 +27,11 @@ function AuthLayout() {
             />
             <BreadcrumbNav />
           </div>
-          <div className="ml-auto px-3">
+          <div className="ml-auto">
             <NavActions />
           </div>
         </header>
-        <main className="p-4">
+        <main className="px-4 lg:px-8 py-4">
           <Outlet />
         </main>
       </SidebarInset>
