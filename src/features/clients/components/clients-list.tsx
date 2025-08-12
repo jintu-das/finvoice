@@ -123,9 +123,7 @@ export const columns: ColumnDef<Client>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const client = row.original;
-
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -136,17 +134,14 @@ export const columns: ColumnDef<Client>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(client.id.toString())
-              }
-            >
-              Copy client ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem>View client details</DropdownMenuItem>
             <DropdownMenuItem>Edit client</DropdownMenuItem>
+            <DropdownMenuItem>Archive Client</DropdownMenuItem>
+            <DropdownMenuSeparator />
+
             <DropdownMenuItem>New invoice</DropdownMenuItem>
+            <DropdownMenuItem>View invoice</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
