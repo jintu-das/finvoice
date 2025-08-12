@@ -15,7 +15,7 @@ function RouteComponent() {
           <h1 className="text-3xl font-bold">Invoices</h1>
           <Link to="/invoices/create" className={buttonVariants()}>
             <Plus className="size-4 mr-2" />
-            Add Invoice
+            Invoice
           </Link>
         </div>
         <p className="text-muted-foreground mt-1 mb-6">
