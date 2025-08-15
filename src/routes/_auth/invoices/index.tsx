@@ -9,13 +9,13 @@ export const Route = createFileRoute("/_auth/invoices/")({
 
 function RouteComponent() {
   return (
-    <div>
+    <>
       <header className="mb-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Invoices</h1>
           <Link to="/invoices/create" className={buttonVariants()}>
             <Plus className="size-4 mr-2" />
-            Invoice
+            Create New Invoice
           </Link>
         </div>
         <p className="text-muted-foreground mt-1 mb-6">
@@ -24,6 +24,6 @@ function RouteComponent() {
       </header>
 
       <InvoicesList />
-    </div>
+    </>
   );
 }

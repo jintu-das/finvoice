@@ -18,7 +18,7 @@ function AuthLayout() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 px-4 lg:px-8">
+        <header className="flex h-14 shrink-0 items-center gap-2 px-4 lg:px-8 border-b">
           <div className="flex flex-1 items-center gap-2">
             <SidebarTrigger />
             <Separator
