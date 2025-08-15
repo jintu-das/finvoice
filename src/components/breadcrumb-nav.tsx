@@ -5,6 +5,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { isMatch, Link, useMatches } from "@tanstack/react-router";
+import * as React from "react";
 
 export const BreadcrumbNav = () => {
   const matches = useMatches();
@@ -23,12 +24,14 @@ export const BreadcrumbNav = () => {
     <Breadcrumb>
       <BreadcrumbList>
         {items.map((item, index) => (
-          <BreadcrumbItem key={index}>
-            <Link to={item.href} className="breadcrumb-link">
-              {item.label}
-            </Link>
+          <React.Fragment key={index}>
+            <BreadcrumbItem>
+              <Link to={item.href} className="breadcrumb-link">
+                {item.label}
+              </Link>
+            </BreadcrumbItem>
             {index < items.length - 1 && <BreadcrumbSeparator />}
-          </BreadcrumbItem>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
