@@ -114,9 +114,7 @@ export const columns: ColumnDef<Invoice>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -127,14 +125,17 @@ export const columns: ColumnDef<Invoice>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.invoice)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>View Invoice</DropdownMenuItem>
+            <DropdownMenuItem>Edit Invoice</DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Duplicate </DropdownMenuItem>
+            <DropdownMenuItem>Mark as Paid</DropdownMenuItem>
+            <DropdownMenuItem>Send Reminder</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
