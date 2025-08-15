@@ -25,6 +25,7 @@ export function CreateInvoiceForm() {
       client: "",
       note: "",
       items: [{ description: "", quantity: 1, price: 0, rate: 0 }],
+      paymentTerms: "NET15",
     },
   });
 
@@ -109,37 +110,33 @@ export function CreateInvoiceForm() {
 
         <FormField
           control={form.control}
-          name="type"
+          name="paymentTerms"
           render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Notify me about...</FormLabel>
+            <FormItem className="space-y-3 col-span-2">
+              <FormLabel>Payment Terms</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-col"
+                  className="flex space-x-4"
                 >
                   <FormItem className="flex items-center gap-3">
                     <FormControl>
-                      <RadioGroupItem value="all" />
+                      <RadioGroupItem value="NET7" />
                     </FormControl>
-                    <FormLabel className="font-normal">
-                      All new messages
-                    </FormLabel>
+                    <FormLabel className="font-normal">Net 7 Days</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center gap-3">
                     <FormControl>
-                      <RadioGroupItem value="mentions" />
+                      <RadioGroupItem value="NET15" />
                     </FormControl>
-                    <FormLabel className="font-normal">
-                      Direct messages and mentions
-                    </FormLabel>
+                    <FormLabel className="font-normal">Net 15 Days</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center gap-3">
                     <FormControl>
-                      <RadioGroupItem value="none" />
+                      <RadioGroupItem value="NET30" />
                     </FormControl>
-                    <FormLabel className="font-normal">Nothing</FormLabel>
+                    <FormLabel className="font-normal">Net 30 Days</FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>

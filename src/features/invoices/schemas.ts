@@ -25,7 +25,7 @@ export const invoiceFormSchema = z.object({
       rate: z.number().optional(),
     })
   ),
-  type: z.enum(["all", "mentions", "none"], {
-    message: "You need to select a notification type.",
+  paymentTerms: z.enum(["NET7", "NET15", "NET30"], {
+    message: "You need to select a payment term.",
   }),
 });
