@@ -1,4 +1,4 @@
-import CreateInvoiceForm from "@/features/invoices/components/create-invoice-form";
+import { CreateInvoiceForm } from "@/features/invoices/components/create-invoice-form";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth/invoices/create")({
