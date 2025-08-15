@@ -48,84 +48,70 @@ export function CreateInvoiceForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-md"
+        className="space-y-8 max-w-md grid grid-cols-2 gap-4 items-start pt-8"
       >
-        <section className="grid grid-cols-2 gap-4">
-          <h2 className="col-span-2 text-xl font-medium">Invoice Details</h2>
+        <FormField
+          control={form.control}
+          name="issueDate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Issue Date</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
 
-          <FormField
-            control={form.control}
-            name="issueDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Issue Date</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="dueDate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Due Date</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
 
-          <FormField
-            control={form.control}
-            name="dueDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Due Date</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </section>
+        <FormField
+          control={form.control}
+          name="client"
+          render={({ field }) => (
+            <FormItem className="col-span-2">
+              <FormLabel>Client</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
 
-        <section className="space-y-4">
-          <h2 className="col-span-2 text-xl font-medium">Bill Payment</h2>
-          <FormField
-            control={form.control}
-            name="client"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Client</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </section>
+        <FormField
+          control={form.control}
+          name="note"
+          render={({ field }) => (
+            <FormItem className="col-span-2">
+              <FormLabel>Notes</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
 
-        <section className="space-y-4">
-          <h2 className="col-span-2 text-xl font-medium">List Task</h2>
-        </section>
-
-        <section className="space-y-4">
-          <h2 className="col-span-2 text-xl font-medium">Notes</h2>
-
-          <FormField
-            control={form.control}
-            name="note"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Notes</FormLabel>
-                <FormControl>
-                  <Textarea {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </section>
-
-        <Button type="submit">Submit</Button>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div>
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
