@@ -1,7 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,8 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
 import { invoiceFormSchema } from "../schemas";
 
 export function CreateInvoiceForm() {
@@ -24,7 +24,7 @@ export function CreateInvoiceForm() {
       issueDate: "",
       client: "",
       note: "",
-      items: [{ description: "", quantity: 1, price: 0 }],
+      items: [{ description: "", quantity: 1, price: 0, rate: 0 }],
     },
   });
 
@@ -38,14 +38,14 @@ export function CreateInvoiceForm() {
   }
 
   function appendItem() {
-    append({ description: "", quantity: 1, price: 0 });
+    append({ description: "", quantity: 1, price: 0, rate: 0 });
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-lg grid grid-cols-2 gap-4 items-start pt-8"
+        className="space-y-8 max-w-2xl grid grid-cols-2 gap-4 items-start pt-8"
       >
         <FormField
           control={form.control}
@@ -107,10 +107,51 @@ export function CreateInvoiceForm() {
           )}
         />
 
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>Notify me about...</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col"
+                >
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="all" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      All new messages
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="mentions" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Direct messages and mentions
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="none" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Nothing</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="col-span-2 ">
           {fields.map((item, index) => (
             <div
-              className="grid grid-cols-[1fr_90px_90px] items-start gap-3"
+              className="grid grid-cols-[1fr_90px_90px_100px] items-start gap-3"
               key={item.id}
             >
               <FormField
@@ -157,6 +198,19 @@ export function CreateInvoiceForm() {
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`items.${index}.rate`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Amount</FormLabel>
+                    <FormControl>
+                      <Input disabled type="number" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

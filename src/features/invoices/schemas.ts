@@ -1,4 +1,4 @@
-import z from "zod";
+import * as z from "zod";
 
 export const invoiceFormSchema = z.object({
   dueDate: z.string().min(2, {
@@ -22,6 +22,10 @@ export const invoiceFormSchema = z.object({
       price: z.number().min(0.01, {
         message: "Price must be at least 0.01.",
       }),
+      rate: z.number().optional(),
     })
   ),
+  type: z.enum(["all", "mentions", "none"], {
+    message: "You need to select a notification type.",
+  }),
 });
